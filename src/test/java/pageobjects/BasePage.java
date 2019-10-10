@@ -12,9 +12,7 @@ public class BasePage {
 
     WebDriver driver;
 
-    public BasePage() {
-
-    }
+    public BasePage() { }
 
     public BasePage(WebDriver driver) {
         this.driver = driver;

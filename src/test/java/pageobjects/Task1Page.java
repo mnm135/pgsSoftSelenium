@@ -23,6 +23,15 @@ public class Task1Page extends BasePage {
     @FindBy(className = "summary-price")
     public WebElement totalPrice;
 
+    public Task1Page(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+
+    public void open() {
+        driver.get(URL);
+    }
+
     public String getFormattedTotalPrice() {
         return totalPrice.getText().split(" ")[0];
     }
@@ -45,19 +54,15 @@ public class Task1Page extends BasePage {
         return price;
     }
 
-    public String getPriceByNameAndAmount(String name, String amount) {
+    public String getExpectedProductPriceByNameAndAmount(String name, String amount) {
         String price = getPriceByName(name);
         double sum = Double.valueOf(price) * Integer.valueOf(amount);
-        return getFormattedPriceValue(sum);
+        return formatPriceValues(sum);
     }
 
-    public Task1Page(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
-
-    public void open() {
-        driver.get(URL);
+    private String formatPriceValues(double value) {
+        double sum = Math.round(value * 100d) / 100d;
+        return String.format(Locale.ROOT,"%.2f", sum);
     }
 
     public void addItemToBasketByNameAndAmount(String name, String amount) {
@@ -83,24 +88,23 @@ public class Task1Page extends BasePage {
         }
     }
 
-    public void verifyPricesOfItemsInBasketFromList(List<String> names, List<String> amounts) {
+    public void verifyTotalPriceInBasketFromList(List<String> names, List<String> amounts) {
         double sum = 0;
         Iterator namesIterator = names.iterator();
         Iterator amountsIterator = amounts.iterator();
         while(namesIterator.hasNext() && amountsIterator.hasNext()) {
-            sum += Double.valueOf(getPriceByNameAndAmount(namesIterator.next().toString(), amountsIterator.next().toString()));
+            sum += Double.valueOf(getExpectedProductPriceByNameAndAmount(namesIterator.next().toString(), amountsIterator.next().toString()));
         }
-        Assertions.assertEquals(getFormattedPriceValue(sum), getFormattedTotalPrice());
+        Assertions.assertEquals(formatPriceValues(sum), getFormattedTotalPrice());
     }
 
     public String getTotalNumberOfProductsInBasket() {
         return totalNumberOfProductsInBasket.getText();
     }
 
-
-    private String getFormattedPriceValue(double value) {
-        double sum = Math.round(value * 100d) / 100d;
-        return String.format(Locale.ROOT,"%.2f", sum);
+    public String getExpectedTotalItemsInBasket(List<String> amounts) {
+        return String.valueOf(amounts.stream().mapToInt(Integer::valueOf).sum());
     }
+
 
 }

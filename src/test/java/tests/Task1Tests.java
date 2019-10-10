@@ -25,12 +25,13 @@ class Task1Tests extends BaseTest {
         task1Page.addItemToBasketByNameAndAmount(name, amount);
 
         Assertions.assertEquals(task1Page.getQuantityOfItemInBasketByName(name).getText(), amount);
-        Assertions.assertEquals(task1Page.getPriceByNameAndAmount(name, amount),  task1Page.getFormattedTotalPrice());
+        Assertions.assertEquals(task1Page.getExpectedProductPriceByNameAndAmount(name, amount),  task1Page.getFormattedTotalPrice());
     }
 
     @ParameterizedTest
     @CsvSource({
-            "Piłka, 3, Okulary, 5, Kabel, 15, Monitor, 25, Kostka, 11"
+            "Piłka, 3, Okulary, 5, Kabel, 15, Monitor, 25, Kostka, 11",
+            "Aparat, 10, Kamera, 33, Poduszka, 1, Zeszyt, 19, Słuchawki, 2"
     })
     @DisplayName("Total quantity and price in the cart is calculated correctly for various type items")
     void quantityAndPriceIsCorrectForDifferentTypesOfProducts(String name1, String amount1,
@@ -46,8 +47,8 @@ class Task1Tests extends BaseTest {
 
         task1Page.addItemsToBasketFromTheList(names, amounts);
         task1Page.verifyQuantityOfItemsInBasketFromList(names, amounts);
-        task1Page.verifyPricesOfItemsInBasketFromList(names, amounts);
-        //@TODO verify sum of all items in basket
+        task1Page.verifyTotalPriceInBasketFromList(names, amounts);
 
+        Assertions.assertEquals(task1Page.getTotalNumberOfProductsInBasket(), task1Page.getExpectedTotalItemsInBasket(amounts));
     }
 }
