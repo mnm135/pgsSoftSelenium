@@ -1,5 +1,6 @@
 package pageobjects;
 
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -67,6 +68,7 @@ public class Task1Page extends BasePage {
         return String.format(Locale.ROOT,"%.2f", sum);
     }
 
+    @Step("Add item to basket")
     public void addItemToBasketByNameAndAmount(String name, String amount) {
         getInputByName(name).clear();
         getInputByName(name).sendKeys(amount);
@@ -108,6 +110,7 @@ public class Task1Page extends BasePage {
         return String.valueOf(amounts.stream().mapToInt(Integer::valueOf).sum());
     }
 
+    @Step("Verify that alert is displayed")
     public void verifyAlertMessageIsDisplayed() {
         Alert alert = driver.switchTo().alert();
         Assertions.assertEquals(alert.getText(), ALLERT_MESSAGE);
