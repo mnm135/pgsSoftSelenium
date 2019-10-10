@@ -1,6 +1,7 @@
 package pageobjects;
 
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,6 +18,7 @@ public class Task1Page extends BasePage {
     private static final String INPUT_TEMPLATE = "//form//button[@data-product-name='%s']/parent::span/following-sibling::input";
     private static final String QUANTITY_TEMPLATE = "//span[@data-quantity-for='%s']";
     private static final String PRICE_TEMPLATE = "//div/h4[text()='%s']/following-sibling::p[1]";
+    private static final String ALLERT_MESSAGE = "Łączna ilość produktów w koszyku nie może przekroczyć 100.";
 
     @FindBy(className = "summary-quantity")
     public WebElement totalNumberOfProductsInBasket;
@@ -104,6 +106,12 @@ public class Task1Page extends BasePage {
 
     public String getExpectedTotalItemsInBasket(List<String> amounts) {
         return String.valueOf(amounts.stream().mapToInt(Integer::valueOf).sum());
+    }
+
+    public void verifyAlertMessageIsDisplayed() {
+        Alert alert = driver.switchTo().alert();
+        Assertions.assertEquals(alert.getText(), ALLERT_MESSAGE);
+        alert.accept();
     }
 
 
