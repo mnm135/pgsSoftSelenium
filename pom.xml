@@ -32,7 +32,6 @@
                     <reportVersion>2.4.1</reportVersion>
                 </configuration>
             </plugin>
-
             <plugin>
             <artifactId>maven-surefire-plugin</artifactId>
             <version>3.0.0-M3</version>
@@ -48,9 +47,7 @@
                     </property>
                 </systemProperties>
             </configuration>
-
         </plugin>
-
         </plugins>
     </build>
     <dependencies>
@@ -60,7 +57,6 @@
             <version>5.5.1</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
@@ -107,7 +103,4 @@
             <version>1.2.0</version>
         </dependency>
     </dependencies>
-
-
-
 </project>

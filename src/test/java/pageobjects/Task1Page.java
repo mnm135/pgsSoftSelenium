@@ -84,6 +84,7 @@ public class Task1Page extends BasePage {
         }
     }
 
+    @Step("Verify that quantity of each item was correctly calculated in basket")
     public void verifyQuantityOfItemsInBasketFromList(List<String> names, List<String> amounts) {
         Iterator namesIterator = names.iterator();
         Iterator amountsIterator = amounts.iterator();
@@ -92,6 +93,7 @@ public class Task1Page extends BasePage {
         }
     }
 
+    @Step("Verify that total price in basket was calculated correctly")
     public void verifyTotalPriceInBasketFromList(List<String> names, List<String> amounts) {
         double sum = 0;
         Iterator namesIterator = names.iterator();

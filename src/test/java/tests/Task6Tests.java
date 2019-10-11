@@ -6,6 +6,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import pageobjects.Task6Page;
 
+import static io.qameta.allure.Allure.step;
+
 class Task6Tests extends BaseTest {
 
     private Task6Page task6Page;
@@ -19,8 +21,10 @@ class Task6Tests extends BaseTest {
         task6Page.open();
 
         task6Page.logIn(username, password);
-        Assertions.assertTrue(task6Page.logoutButton.isDisplayed());
-        Assertions.assertTrue(task6Page.downloadButton.isDisplayed());
+        step("Verify that download and logout buttons are displayed", (step) -> {
+            Assertions.assertTrue(task6Page.logoutButton.isDisplayed());
+            Assertions.assertTrue(task6Page.downloadButton.isDisplayed());
+        });
     }
 
     @ParameterizedTest
@@ -35,7 +39,9 @@ class Task6Tests extends BaseTest {
         task6Page.open();
 
         task6Page.logIn(username, password);
-        Assertions.assertTrue(task6Page.incorrectLoginDataMessage.isDisplayed());
+        step("Verify that error regarding incorrect data is displyed", (step) -> {
+            Assertions.assertTrue(task6Page.incorrectLoginDataMessage.isDisplayed());
+        });
     }
 
     @ParameterizedTest
@@ -47,8 +53,12 @@ class Task6Tests extends BaseTest {
         task6Page.open();
 
         task6Page.logIn(username, password);
-        task6Page.downloadButton.click();
-        Thread.sleep(2000);
-        Assertions.assertTrue(task6Page.isFileDownloaded(filename));
+        step("Click download button", (step) -> {
+            task6Page.downloadButton.click();
+        });
+        step("Verify that file is correctly downloaded", (step) -> {
+            Thread.sleep(2000);
+            Assertions.assertTrue(task6Page.isFileDownloaded(filename));
+        });
     }
 }

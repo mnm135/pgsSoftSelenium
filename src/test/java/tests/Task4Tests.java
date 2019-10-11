@@ -6,6 +6,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import pageobjects.Task4Page;
 
+import static io.qameta.allure.Allure.step;
+
 class Task4Tests extends BaseTest {
 
     private Task4Page task4Page;
@@ -20,14 +22,15 @@ class Task4Tests extends BaseTest {
         task4Page = new Task4Page(driver);
         task4Page.open();
         task4Page.scrollToElement(task4Page.applyButton);
-        task4Page.applyButton.click();
+        task4Page.clickApplyButton();
         task4Page.switchToNewWindow();
 
         task4Page.verifyFormIsDisplayed();
 
         task4Page.fillAndSaveTheForm(name, phone, email);
-
-        Assertions.assertTrue(task4Page.applicationSentMessage.isDisplayed());
+        step("Verify that application was sent", (step) -> {
+            Assertions.assertTrue(task4Page.applicationSentMessage.isDisplayed());
+        });
     }
 
     @ParameterizedTest
@@ -41,13 +44,15 @@ class Task4Tests extends BaseTest {
         task4Page.open();
 
         task4Page.scrollToElement(task4Page.applyButton);
-        task4Page.applyButton.click();
+        task4Page.clickApplyButton();
         task4Page.switchToNewWindow();
 
         task4Page.fillAndSaveTheForm(name, phone, email);
 
         task4Page.waitForElement(task4Page.wrongEmailError);
-        Assertions.assertTrue(task4Page.wrongEmailError.isDisplayed());
+        step("Verify that total error regarding incorrect email format is displayed", (step) -> {
+            Assertions.assertTrue(task4Page.wrongEmailError.isDisplayed());
+        });
     }
 
     @ParameterizedTest
@@ -61,12 +66,14 @@ class Task4Tests extends BaseTest {
         task4Page.open();
 
         task4Page.scrollToElement(task4Page.applyButton);
-        task4Page.applyButton.click();
+        task4Page.clickApplyButton();
         task4Page.switchToNewWindow();
 
         task4Page.fillAndSaveTheForm(name, phone, email);
 
-        Assertions.assertTrue(task4Page.wrongPhoneError.isDisplayed());
+        step("Verify that total error regarding incorrect phone format is displayed", (step) -> {
+            Assertions.assertTrue(task4Page.wrongPhoneError.isDisplayed());
+        });
     }
 
     @ParameterizedTest
@@ -85,7 +92,9 @@ class Task4Tests extends BaseTest {
 
         task4Page.fillAndSaveTheForm(name, phone, email);
 
-        Assertions.assertTrue(task4Page.wrongEmailError.isDisplayed());
-        Assertions.assertTrue(task4Page.wrongPhoneError.isDisplayed());
+        step("Verify that total error regarding incorrect email and phone format is displayed", (step) -> {
+            Assertions.assertTrue(task4Page.wrongEmailError.isDisplayed());
+            Assertions.assertTrue(task4Page.wrongPhoneError.isDisplayed());
+        });
     }
 }

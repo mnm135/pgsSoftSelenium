@@ -1,5 +1,6 @@
 package pageobjects;
 
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -39,6 +40,7 @@ public class Task4Page extends BasePage {
         driver.get(URL);
     }
 
+    @Step("Fill and save user form")
     public void fillAndSaveTheForm(String name, String phone, String email) {
         nameInput.sendKeys(name);
         phoneInput.sendKeys(phone);
@@ -46,6 +48,7 @@ public class Task4Page extends BasePage {
         saveButton.click();
     }
 
+    @Step("Navigate to newly open window")
     public void switchToNewWindow() {
         driver.close();
         for(String winHandle : driver.getWindowHandles()){
@@ -56,10 +59,16 @@ public class Task4Page extends BasePage {
         waitForMultipleElements(List.of(nameInput, phoneInput, emailInput, saveButton));
     }
 
+    @Step("Verify user form is displayed")
     public void verifyFormIsDisplayed() {
         Assertions.assertTrue(nameInput.isDisplayed());
         Assertions.assertTrue(phoneInput.isDisplayed());
         Assertions.assertTrue(emailInput.isDisplayed());
         Assertions.assertTrue(saveButton.isDisplayed());
+    }
+
+    @Step("Click apply button")
+    public void clickApplyButton() {
+        applyButton.click();
     }
 }

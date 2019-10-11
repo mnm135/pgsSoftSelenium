@@ -26,8 +26,11 @@ class Task1Tests extends BaseTest {
 
         task1Page.addItemToBasketByNameAndAmount(name, amount);
 
-        Assertions.assertEquals(task1Page.getQuantityOfItemInBasketByName(name).getText(), amount);
-        Assertions.assertEquals(task1Page.getExpectedProductPriceByNameAndAmount(name, amount), task1Page.getFormattedTotalPrice());
+        step("Verify that items were correctly added to basket", (step) -> {
+            Assertions.assertEquals(task1Page.getQuantityOfItemInBasketByName(name).getText(), amount);
+            Assertions.assertEquals(task1Page.getExpectedProductPriceByNameAndAmount(name, amount), task1Page.getFormattedTotalPrice());
+
+        });
     }
 
     @ParameterizedTest(name = "Total quantity and price in the cart is calculated correctly for various type items")
@@ -50,7 +53,9 @@ class Task1Tests extends BaseTest {
         task1Page.verifyQuantityOfItemsInBasketFromList(names, amounts);
         task1Page.verifyTotalPriceInBasketFromList(names, amounts);
 
-        Assertions.assertEquals(task1Page.getTotalNumberOfProductsInBasket(), task1Page.getExpectedTotalItemsInBasket(amounts));
+        step("Verify that total number of products in basket was calculated correctly", (step) -> {
+            Assertions.assertEquals(task1Page.getTotalNumberOfProductsInBasket(), task1Page.getExpectedTotalItemsInBasket(amounts));
+        });
     }
 
     @ParameterizedTest(name = "User can't add more than 100 items to the basket")

@@ -1,5 +1,6 @@
 package pageobjects;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -47,6 +48,7 @@ public class Task6Page extends BasePage {
         return false;
     }
 
+    @Step("Log in")
     public void logIn(String username, String password) {
         userNameInput.sendKeys(username);
         passwordInput.sendKeys(password);

@@ -1,12 +1,13 @@
 package tests;
 
-import org.junit.jupiter.api.Assertions;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import pageobjects.Task3Page;
 
+@Story("Task 3 - user form")
 class Task3Tests extends BaseTest {
 
     private Task3Page task3Page;
