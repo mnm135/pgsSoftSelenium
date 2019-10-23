@@ -4,6 +4,7 @@ import io.qameta.allure.Story;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import pageobjects.Task1Page;
 import static io.qameta.allure.Allure.step;
 
@@ -34,20 +35,13 @@ class Task1Tests extends BaseTest {
     }
 
     @ParameterizedTest(name = "Total quantity and price in the cart is calculated correctly for various type items")
-    @CsvSource({
-            "Piłka, 3, Okulary, 5, Kabel, 15, Monitor, 25, Kostka, 11",
-            "Aparat, 10, Kamera, 33, Poduszka, 1, Zeszyt, 19, Słuchawki, 2"
-    })
-    void quantityAndPriceIsCorrectForDifferentTypesOfProducts(String name1, String amount1,
-                                                              String name2, String amount2,
-                                                              String name3, String amount3,
-                                                              String name4, String amount4,
-                                                              String name5, String amount5) {
+    @MethodSource("testdata.ShoppingCartItemsProvider#cartItemsData")
+    void quantityAndPriceIsCorrectForDifferentTypesOfProducts(List<String> names, List<String> amounts) {
         task1Page = new Task1Page(driver);
         task1Page.open();
 
-        List<String> names = List.of(name1, name2, name3, name4, name5);
-        List<String> amounts = List.of(amount1, amount2, amount3, amount4, amount5);
+       // List<String> names = List.of(name1, name2, name3, name4, name5);
+        //List<String> amounts = List.of(amount1, amount2, amount3, amount4, amount5);
 
         task1Page.addItemsToBasketFromTheList(names, amounts);
         task1Page.verifyQuantityOfItemsInBasketFromList(names, amounts);
@@ -59,20 +53,12 @@ class Task1Tests extends BaseTest {
     }
 
     @ParameterizedTest(name = "User can't add more than 100 items to the basket")
-    @CsvSource({
-            "Piłka, 3, Okulary, 5, Kabel, 15, Monitor, 25, Kostka, 70",
-            "Aparat, 10, Kamera, 10, Poduszka, 10, Zeszyt, 70, Słuchawki, 1"
-    })
-    void totalAmountInBasketCantBeMoreThanOneHundred(String name1, String amount1,
-                                                     String name2, String amount2,
-                                                     String name3, String amount3,
-                                                     String name4, String amount4,
+    @MethodSource("testdata.ShoppingCartItemsProvider#cartItemsNegativeData")
+    void totalAmountInBasketCantBeMoreThanOneHundred(List<String> names, List<String> amounts,
                                                      String supernumeraryName, String supernumeraryAmount) {
         task1Page = new Task1Page(driver);
         task1Page.open();
 
-        List<String> names = List.of(name1, name2, name3, name4);
-        List<String> amounts = List.of(amount1, amount2, amount3, amount4);
 
         task1Page.addItemsToBasketFromTheList(names, amounts);
 
