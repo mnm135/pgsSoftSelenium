@@ -48,7 +48,7 @@ public class Task3Page extends BasePage{
     }
 
     @Step("Fill and save the user form")
-    public void fillTheForm(String name, String surname, String notes, String phone) {
+    public void fillAndSaveTheForm(String name, String surname, String notes, String phone) {
         nameInput.clear();
         nameInput.sendKeys(name);
         surnameInput.clear();

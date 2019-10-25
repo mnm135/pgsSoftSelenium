@@ -46,7 +46,6 @@ class Task4Tests extends BaseTest {
         task4Page.scrollToElement(task4Page.applyButton);
         task4Page.clickApplyButton();
         task4Page.switchToNewWindow();
-
         task4Page.fillAndSaveTheForm(name, phone, email);
 
         task4Page.waitForElement(task4Page.wrongEmailError);
@@ -68,7 +67,6 @@ class Task4Tests extends BaseTest {
         task4Page.scrollToElement(task4Page.applyButton);
         task4Page.clickApplyButton();
         task4Page.switchToNewWindow();
-
         task4Page.fillAndSaveTheForm(name, phone, email);
 
         step("Verify that total error regarding incorrect phone format is displayed", (step) -> {
@@ -89,7 +87,6 @@ class Task4Tests extends BaseTest {
         task4Page.scrollToElement(task4Page.applyButton);
         task4Page.applyButton.click();
         task4Page.switchToNewWindow();
-
         task4Page.fillAndSaveTheForm(name, phone, email);
 
         step("Verify that total error regarding incorrect email and phone format is displayed", (step) -> {

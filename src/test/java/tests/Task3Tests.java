@@ -34,7 +34,7 @@ class Task3Tests extends BaseTest {
         task3Page.open();
         task3Page.enableEditMode();
 
-        task3Page.fillTheForm(name, surname, notes, phone);
+        task3Page.fillAndSaveTheForm(name, surname, notes, phone);
         task3Page.verifyTheFormIsSavedWithCorrectValues(name, surname, notes, phone);
     }
 }

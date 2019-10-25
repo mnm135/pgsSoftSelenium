@@ -53,8 +53,7 @@ public class Task1Page extends BasePage {
 
     public String getPriceByName(String name) {
         WebElement priceElement = driver.findElement(By.xpath(String.format(PRICE_TEMPLATE, name)));
-        String price = priceElement.getText().split(" ")[1];
-        return price;
+        return priceElement.getText().split(" ")[1];
     }
 
     public String getExpectedProductPriceByNameAndAmount(String name, String amount) {
@@ -118,6 +117,4 @@ public class Task1Page extends BasePage {
         Assertions.assertEquals(alert.getText(), ALLERT_MESSAGE);
         alert.accept();
     }
-
-
 }

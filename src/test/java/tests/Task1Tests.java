@@ -30,7 +30,6 @@ class Task1Tests extends BaseTest {
         step("Verify that items were correctly added to basket", (step) -> {
             Assertions.assertEquals(task1Page.getQuantityOfItemInBasketByName(name).getText(), amount);
             Assertions.assertEquals(task1Page.getExpectedProductPriceByNameAndAmount(name, amount), task1Page.getFormattedTotalPrice());
-
         });
     }
 
@@ -39,9 +38,6 @@ class Task1Tests extends BaseTest {
     void quantityAndPriceIsCorrectForDifferentTypesOfProducts(List<String> names, List<String> amounts) {
         task1Page = new Task1Page(driver);
         task1Page.open();
-
-       // List<String> names = List.of(name1, name2, name3, name4, name5);
-        //List<String> amounts = List.of(amount1, amount2, amount3, amount4, amount5);
 
         task1Page.addItemsToBasketFromTheList(names, amounts);
         task1Page.verifyQuantityOfItemsInBasketFromList(names, amounts);
@@ -58,7 +54,6 @@ class Task1Tests extends BaseTest {
                                                      String supernumeraryName, String supernumeraryAmount) {
         task1Page = new Task1Page(driver);
         task1Page.open();
-
 
         task1Page.addItemsToBasketFromTheList(names, amounts);
 
