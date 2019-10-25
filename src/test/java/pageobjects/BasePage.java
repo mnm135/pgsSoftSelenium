@@ -19,17 +19,17 @@ public class BasePage {
     }
 
     public void waitForElement(WebElement element) {
-        WebDriverWait wait2 = new WebDriverWait(driver, 10);
-        wait2.until(ExpectedConditions.visibilityOf(element));
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOf(element));
     }
 
     protected void waitForMultipleElements(List<WebElement> listOfElements) {
-        WebDriverWait wait2 = new WebDriverWait(driver, 10);
-        wait2.until(ExpectedConditions.visibilityOfAllElements(listOfElements));
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfAllElements(listOfElements));
     }
 
     public void scrollToElement(WebElement element) {
-        JavascriptExecutor jse2 = (JavascriptExecutor) driver;
-        jse2.executeScript("arguments[0].scrollIntoView()", element);
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
+        javascriptExecutor.executeScript("arguments[0].scrollIntoView()", element);
     }
 }
